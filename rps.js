@@ -4,48 +4,39 @@ let roundNum = 1;
 const buttons = document.querySelectorAll("input");
 
 function computerPlay(){
-    let choices = ["rock","paper","scissors"];
+    let choices = ["fire","water","grass"];
     return choices[Math.floor(Math.random() * choices.length)]
 }
 
 
 function playRound(playerSelection){
     let computerSelection = computerPlay();
-    let win = `You Win! ${playerSelection} beats ${computerSelection}.`;
-    let loss = `You lost! ${computerSelection} beats ${playerSelection}.`;
-    let draw = 'Draw!';
+    let win = `You Win! ${playerSelection} is super effective against ${computerSelection}.`;
+    let loss = `You were defeated! ${playerSelection} does almost nothing to ${computerSelection}.`;
+    let draw = 'Draw! You two are evenly matched!';
     let result ="";
 
     if(playerSelection == computerSelection){
         result = draw;
        
     }
-    else if(playerSelection == "rock" && computerSelection == "paper"){
-        result = loss;
-        
+    else if(playerSelection == "fire" && computerSelection == "water" ||
+    playerSelection == "water" && computerSelection == "grass" ||
+    playerSelection == "scissors" && computerSelection == "fire"){
+        result = loss; 
     }
-    else if(playerSelection == "rock" && computerSelection == "scissors"){
+    
+
+
+    else if(playerSelection == "fire" && computerSelection == "grass"||
+            playerSelection == "water" && computerSelection == "fire" ||
+            playerSelection == "grass" && computerSelection == "water"){
         result = win;
-       
-    }
-    else if(playerSelection == "paper" && computerSelection == "rock"){
-        result = win;
-        
-    }
-    else if(playerSelection == "paper" && computerSelection == "scissors"){
-        result = loss;
-        
-    }
-    else if(playerSelection == "scissors" && computerSelection == "rock"){
-        result = loss;
-       
-    }
-    else{
-        result = win;
-        
-    }
-    document.getElementById('results').innerHTML = result;
-    return
+        }
+    
+   
+        document.getElementById('results').innerHTML = result;
+        return
 }
 
 
