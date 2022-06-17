@@ -1,11 +1,14 @@
 let playerScore = 0;
 let computerScore = 0;
-let roundNum = 1;
 const buttons = document.querySelectorAll("input");
+const monster = document.querySelector("#monster");
 
-function computerPlay(){
-    let choices = ["fire","water","grass"];
-    return choices[Math.floor(Math.random() * choices.length)]
+function computerPlay(){ 
+    let choices = [["fire","images/fire-monster.png"],["water","images/water-monster.png" ], 
+             ["grass", "images/forest-monster.png"]];
+    let random = Math.floor(Math.random()*choices.length);
+    monster.setAttribute("src",choices[random][1]);
+    return choices[random][0];
 }
 
 
@@ -23,7 +26,9 @@ function playRound(playerSelection){
     else if(playerSelection == "fire" && computerSelection == "water" ||
     playerSelection == "water" && computerSelection == "grass" ||
     playerSelection == "scissors" && computerSelection == "fire"){
+        computerScore += 1;
         result = loss; 
+
     }
     
 
@@ -31,11 +36,14 @@ function playRound(playerSelection){
     else if(playerSelection == "fire" && computerSelection == "grass"||
             playerSelection == "water" && computerSelection == "fire" ||
             playerSelection == "grass" && computerSelection == "water"){
+                playerScore +=1;
         result = win;
         }
     
+        let score = `Monsters Slain: ${playerScore}    Lives Lost: ${computerScore}`;
    
         document.getElementById('results').innerHTML = result;
+        document.getElementById('score').innerText = score;
         return
 }
 
@@ -43,5 +51,7 @@ function playRound(playerSelection){
 buttons.forEach(button =>{
     button.addEventListener('click', function(){
         console.log(playRound(button.value))
+        console.log(playerScore,computerScore);
+        
     })
 })
